@@ -29,6 +29,11 @@ public class User {
     private Long roleId;
     private String fio;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    private Roles role;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

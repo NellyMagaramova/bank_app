@@ -33,7 +33,7 @@ public class Actions {
     private Long summ;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "card_id", referencedColumnName = "id")
     private BankCard bankCard;
 
