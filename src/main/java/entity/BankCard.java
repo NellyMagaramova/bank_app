@@ -3,13 +3,14 @@ package entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
+import jakarta.persistence.*;
 
 import java.util.Date;
 import java.util.Objects;
@@ -32,7 +33,7 @@ public class BankCard {
     @Column(name = "validaty_period")
     private Date validatyPeriod;
 
-    @Type(type = "org.hibernate.type.NumericBooleanType")
+    @Convert(converter = org.hibernate.type.NumericBooleanConverter.class)
     private Boolean status;
 
     private Long balance;
