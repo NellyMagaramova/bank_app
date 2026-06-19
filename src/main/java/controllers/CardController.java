@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import service.CardService;
 
 @RestController
+@RequestMapping("/card")
 public class CardController {
     private final CardService cardService;
 
@@ -14,10 +15,12 @@ public class CardController {
         this.cardService = cardService;
     }
 
-    @PostMapping("/card")
+    @PostMapping("/number")
     public ResponseEntity<BankCard> findByNumber(@RequestBody String number){
         return ResponseEntity.ok(cardService.findCard(number));
 
     }
+
+
 
 }
