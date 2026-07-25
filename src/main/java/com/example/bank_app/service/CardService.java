@@ -17,5 +17,8 @@ public class CardService {
     public BankCard findCard(String number){
         return repository.findByNumber(number);
     }
+    public BankCard sendBalance(String number1, String number2, int value){
+        return repository.sendBalance(number1, number2,value);
+    }
 
 }

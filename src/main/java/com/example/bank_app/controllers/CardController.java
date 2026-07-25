@@ -20,4 +20,12 @@ public class CardController {
         return ResponseEntity.ok(cardService.findCard(number));
 
     }
+
+    @PostMapping("/sendBalance")
+    public ResponseEntity<BankCard> sendBalance(@RequestBody String number1, String number2, int value){
+        return ResponseEntity.ok(cardService.sendBalance(number1, number2, value));
+    }
+
+
+
 }
