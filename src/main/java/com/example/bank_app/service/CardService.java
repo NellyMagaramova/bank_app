@@ -1,11 +1,10 @@
-package service;
+package com.example.bank_app.service;
 
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
-import java.util.List;
-import entity.BankCard;
-import repo.BankCardRepository;
+import com.example.bank_app.entity.BankCard;
+import com.example.bank_app.repo.BankCardRepository;
 
 
 @Service
@@ -16,7 +15,7 @@ public class CardService {
         this.repository = repository;
     }
     public BankCard findCard(String number){
-        return repository.findByBankCardNumber(number);
+        return repository.findByNumber(number);
     }
 
 }

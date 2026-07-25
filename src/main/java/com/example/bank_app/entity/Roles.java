@@ -1,8 +1,4 @@
-package entity;
-
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+package com.example.bank_app.entity;
 
 
 import jakarta.persistence.*;
@@ -14,11 +10,10 @@ import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.util.Objects;
-import java.util.Set;
 
 
 @Entity
-@Table(name = "Roles", schema = "public", catalog = "Bank")
+@Table(name = "\"Roles\"", schema = "public", catalog = "Bank")
 @Setter
 @Getter
 @AllArgsConstructor

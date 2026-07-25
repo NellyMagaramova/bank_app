@@ -1,46 +1,48 @@
-package entity;
+package com.example.bank_app.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
 
+import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
-@Table(name = "User", schema = "public", catalog = "bank")
+@Table(name = "\"Actions\"", schema = "public", catalog = "Bank")
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Cacheable()
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class User {
-    @Id
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+public class Actions {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Long id;
-    private Long roleId;
-    private String fio;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id", referencedColumnName = "id")
-    private Roles role;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "type_id", referencedColumnName = "id")
+    private TypeAction typeAction;
+
+    private Long summ;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "card_id", referencedColumnName = "id")
+    private BankCard bankCard;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id.equals(user.id);
+        Actions action = (Actions) o;
+        return id.equals(action.id);
     }
 
     @Override
@@ -48,10 +50,6 @@ public class User {
         return Objects.hash(id);
     }
 
-    @Override
-    public String toString() {
-        return  fio;
-    }
 
 
 }

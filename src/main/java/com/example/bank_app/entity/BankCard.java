@@ -1,4 +1,4 @@
-package entity;
+package com.example.bank_app.entity;
 
 /*
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -10,14 +10,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Type;
 import jakarta.persistence.*;
 
 import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "BankCard", schema = "public", catalog = "Bank")
+@Table(name = "\"BankCard\"", schema = "public", catalog = "Bank")
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
@@ -34,7 +33,7 @@ public class BankCard {
     @Column(name = "validaty_period")
     private Date validatyPeriod;
 
-    @Convert(converter = org.hibernate.type.NumericBooleanConverter.class)
+    // @Convert(converter = org.hibernate.type.NumericBooleanConverter.class)
     private Boolean status;
 
     private Long balance;

@@ -1,10 +1,10 @@
-package controllers;
+package com.example.bank_app.controllers;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import entity.BankCard;
+import com.example.bank_app.entity.BankCard;
 import org.springframework.web.bind.annotation.*;
-import service.CardService;
+import com.example.bank_app.service.CardService;
 
 @RestController
 @RequestMapping("/card")
@@ -20,7 +20,4 @@ public class CardController {
         return ResponseEntity.ok(cardService.findCard(number));
 
     }
-
-
-
 }
