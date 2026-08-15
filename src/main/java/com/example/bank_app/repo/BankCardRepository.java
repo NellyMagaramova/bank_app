@@ -1,5 +1,6 @@
 package com.example.bank_app.repo;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import com.example.bank_app.entity.BankCard;
@@ -10,13 +11,29 @@ import org.springframework.data.repository.query.Param;
 public interface BankCardRepository extends CrudRepository<BankCard, Long>{
     BankCard findByNumber(String number);
 
-    @Query("UPDATE public.'BankCard' SET  balance= balance-value  WHERE 'number' = 'number1';  " +
-            "UPDATE public.'BankCard'  SET  balance= balance+value  WHERE 'number' = 'number2';"+
-            +
+    @Modifying(clearAutomatically = true, flushAutomatically = true)
+    @Query("""
+              UPDATE BankCard card
+              SET card.balance = card.balance - :value
+              WHERE card.number = :number
+                AND card.balance >= :value
+              """)
+    int debit(
+            @Param("number") String number,
+            @Param("value") long value
+    );
 
-    "COMMIT;")
-        // искать по всем переданным параметрам (пустые параметры учитываться не будут)
 
+    @Modifying(clearAutomatically = true, flushAutomatically = true)
+    @Query("""
+              UPDATE BankCard card
+              SET card.balance = card.balance + :value
+              WHERE card.number = :number
+              """)
+    int credit(
+            @Param("number") String number,
+            @Param("value") long value
+    );
+  
 
-    BankCard sendBalance(@Param("number")String number1,@Param("number")String number2, int value);
 }

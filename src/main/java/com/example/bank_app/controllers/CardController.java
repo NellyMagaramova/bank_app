@@ -22,7 +22,11 @@ public class CardController {
     }
 
     @PostMapping("/sendBalance")
-    public ResponseEntity<BankCard> sendBalance(@RequestBody String number1, String number2, int value){
+    public ResponseEntity<BankCard> sendBalance(
+            @RequestParam("number1") String number1,
+            @RequestParam("number2") String number2,
+            @RequestParam("value") int value
+    ) {
         return ResponseEntity.ok(cardService.sendBalance(number1, number2, value));
     }
 

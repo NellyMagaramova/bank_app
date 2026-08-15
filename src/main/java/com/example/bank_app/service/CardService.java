@@ -17,8 +17,30 @@ public class CardService {
     public BankCard findCard(String number){
         return repository.findByNumber(number);
     }
-    public BankCard sendBalance(String number1, String number2, int value){
-        return repository.sendBalance(number1, number2,value);
+    public BankCard sendBalance(String number1, String number2, int value) {
+        if (value <= 0) {
+            throw new IllegalArgumentException("Сумма должна быть больше нуля");
+        }
+
+        if (number1 == null || number2 == null || number1.equals(number2)) {
+            throw new IllegalArgumentException("Некорректные номера карт");
+        }
+
+        int debited = repository.debit(number1, value);
+
+        if (debited != 1) {
+            throw new IllegalArgumentException(
+                    "Карта отправителя не найдена или недостаточно средств"
+            );
+        }
+
+        int credited = repository.credit(number2, value);
+
+        if (credited != 1) {
+            throw new IllegalArgumentException("Карта получателя не найдена");
+        }
+
+        return repository.findByNumber(number2);
     }
 
 }
