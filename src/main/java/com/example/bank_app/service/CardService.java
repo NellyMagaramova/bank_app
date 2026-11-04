@@ -42,5 +42,13 @@ public class CardService {
 
         return repository.findByNumber(number2);
     }
+    public BankCard blockCard(String number){
+        if (number == null) {
+            throw new IllegalArgumentException("Некорректный номер кары");
+        }
+        boolean block = repository.block(number);
+        System.out.println("block = " + block);
+        return  repository.findByNumber(number);
+    }
 
 }

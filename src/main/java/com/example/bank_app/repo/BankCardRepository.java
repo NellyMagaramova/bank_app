@@ -14,6 +14,16 @@ public interface BankCardRepository extends CrudRepository<BankCard, Long>{
     @Modifying(clearAutomatically = true, flushAutomatically = true)
     @Query("""
               UPDATE BankCard card
+              SET card.status = false
+              WHERE card.number = :number                
+              """)
+    boolean block(
+            @Param("number") String number
+    );
+
+    @Modifying(clearAutomatically = true, flushAutomatically = true)
+    @Query("""
+              UPDATE BankCard card
               SET card.balance = card.balance - :value
               WHERE card.number = :number
                 AND card.balance >= :value

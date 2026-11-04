@@ -30,6 +30,13 @@ public class CardController {
         return ResponseEntity.ok(cardService.sendBalance(number1, number2, value));
     }
 
+    @PostMapping("/block")
+    public ResponseEntity<BankCard> blockCard(
+            @RequestParam("number") String number
+    ){
+        return ResponseEntity.ok(cardService.blockCard(number));
+    }
+
 
 
 }
