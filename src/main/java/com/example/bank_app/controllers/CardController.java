@@ -16,15 +16,15 @@ public class CardController {
     }
 
     @PostMapping("/number")
-    public ResponseEntity<BankCard> findByNumber(@RequestBody String number){
+    public ResponseEntity<BankCard> findByNumber(@RequestBody Integer number){
         return ResponseEntity.ok(cardService.findCard(number));
 
     }
 
     @PostMapping("/sendBalance")
     public ResponseEntity<BankCard> sendBalance(
-            @RequestParam("number1") String number1,
-            @RequestParam("number2") String number2,
+            @RequestParam("number1") Integer number1,
+            @RequestParam("number2") Integer number2,
             @RequestParam("value") int value
     ) {
         return ResponseEntity.ok(cardService.sendBalance(number1, number2, value));
@@ -32,11 +32,8 @@ public class CardController {
 
     @PostMapping("/block")
     public ResponseEntity<BankCard> blockCard(
-            @RequestParam("number") String number
+            @RequestParam("number") Integer number
     ){
         return ResponseEntity.ok(cardService.blockCard(number));
     }
-
-
-
 }

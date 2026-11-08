@@ -14,10 +14,10 @@ public class CardService {
     public CardService(BankCardRepository repository){
         this.repository = repository;
     }
-    public BankCard findCard(String number){
+    public BankCard findCard(Integer number){
         return repository.findByNumber(number);
     }
-    public BankCard sendBalance(String number1, String number2, int value) {
+    public BankCard sendBalance(Integer number1, Integer number2, int value) {
         if (value <= 0) {
             throw new IllegalArgumentException("Сумма должна быть больше нуля");
         }
@@ -42,12 +42,13 @@ public class CardService {
 
         return repository.findByNumber(number2);
     }
-    public BankCard blockCard(String number){
+    public BankCard blockCard(Integer number){
         if (number == null) {
             throw new IllegalArgumentException("Некорректный номер кары");
         }
-        boolean block = repository.block(number);
-        System.out.println("block = " + block);
+        boolean block = repository.block(number) > 0;
+        
+        System.out.println("статус выполнения блокировки карты" + block);
         return  repository.findByNumber(number);
     }
 

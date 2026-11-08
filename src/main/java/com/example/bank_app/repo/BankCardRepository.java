@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 @Repository
 public interface BankCardRepository extends CrudRepository<BankCard, Long>{
-    BankCard findByNumber(String number);
+    BankCard findByNumber(Integer number);
 
     @Modifying(clearAutomatically = true, flushAutomatically = true)
     @Query("""
@@ -17,8 +17,8 @@ public interface BankCardRepository extends CrudRepository<BankCard, Long>{
               SET card.status = false
               WHERE card.number = :number                
               """)
-    boolean block(
-            @Param("number") String number
+    int block(
+            @Param("number") Integer number
     );
 
     @Modifying(clearAutomatically = true, flushAutomatically = true)
@@ -29,7 +29,7 @@ public interface BankCardRepository extends CrudRepository<BankCard, Long>{
                 AND card.balance >= :value
               """)
     int debit(
-            @Param("number") String number,
+            @Param("number") Integer number,
             @Param("value") long value
     );
 
@@ -41,7 +41,7 @@ public interface BankCardRepository extends CrudRepository<BankCard, Long>{
               WHERE card.number = :number
               """)
     int credit(
-            @Param("number") String number,
+            @Param("number") Integer number,
             @Param("value") long value
     );
   
